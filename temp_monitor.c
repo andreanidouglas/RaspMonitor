@@ -36,11 +36,14 @@ long readNumberFile(char *filePath)
 	if (fd == NULL)
 	{
 		while (fd == NULL)
-			fd = fopen(filePath, "r");
+		{
+			printf("Erro ao Abrir Arquivo");
+			exit(1);
+		}
 	}
 	while (fgets(buff, sizeof(buff), fd))
 	{
-		printf("Buffer lido: %s", buff);
+		//printf("Buffer lido: %s", buff);
 		returnValue = atol(buff);
 		
 	}
@@ -53,12 +56,14 @@ void TemperaturaMonitor()
 	pinMode(PIN_TEMPERATURA, OUTPUT); //SETUP PIN
 	long temperatura;
 	temperatura = readNumberFile("/sys/class/thermal/thermal_zone0/temp");
-	printf("Temperatura: %ld", temperatura);
+	//printf("Temperatura: %ld", temperatura);
 	if (temperatura != -1)
 	{
 		if (temperatura >= MAX_TEMP)
 		{
 			digitalWrite(PIN_TEMPERATURA, HIGH);
+			delay(300);
+			digitalWrite(PIN_TEMPERATURA, LOW);
 		}
 	}
 }
