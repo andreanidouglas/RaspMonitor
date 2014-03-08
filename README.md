@@ -8,9 +8,9 @@ Raspiberry Pi GPIO Monitor
 Requires:
 ----------
 
-[Raspberry Pi Model B](http://www.raspberrypi.org/)
-[WiringPi] (http://wiringpi.com)
-[Raspbian](http://www.raspbian.org/)
+* [Raspberry Pi Model B](http://www.raspberrypi.org/)
+* [WiringPi] (http://wiringpi.com)
+* [Raspbian](http://www.raspbian.org/)
 
 Compile With:
 --------------
