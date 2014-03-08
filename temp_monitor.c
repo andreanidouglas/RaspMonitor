@@ -28,6 +28,7 @@ int main ()
 long readNumberFile(char *filePath)
 {
 	FILE *fd;
+	int returnValue= -1;
 	char buff[2048];
 	fd = fopen(filePath, "r");
 	if (fd == NULL)
@@ -38,9 +39,11 @@ long readNumberFile(char *filePath)
 	while (fgets(buff, sizeof(buff), fd))
 	{
 		printf("Buffer lido: %s", buff);
-		return (atol(buff));
+		returnValue = atol(buff);
+		
 	}
-	return -1;
+	fclose(fd);
+	return returnValue;
 }
 
 void TemperaturaMonitor()
@@ -57,4 +60,3 @@ void TemperaturaMonitor()
 		}
 	}
 }
-
