@@ -32,8 +32,8 @@ long readNumberFile(char *filePath)
 	fd = fopen(filePath, "r");
 	if (fd == NULL)
 	{
-		printf("Erro ao Abrir o Arquivo");
-		exit(0);
+		while (fd == NULL)
+			fd = fopen(filePath, "r");
 	}
 	while (fgets(buff, sizeof(buff), fd))
 	{
