@@ -15,7 +15,7 @@ int main ()
 	{
 		printf("Fork incompleto");
 	}
-	if (pid = 0)
+	if (pid == 0)
 	{
 		while (1)
 		{
