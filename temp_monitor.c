@@ -1,5 +1,10 @@
 #include <wiringPi.h>
 #include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <string.h>
 #include <stdio.h>
 #include <unistd.h>
 #define MAX_TEMP 45000
@@ -11,19 +16,39 @@ int main ()
 {
 	wiringPiSetup(); //setup IO
 	resetPins();
-	int pid;
+	int pid, sid;
 	pid = fork();
 	if (pid < 0)
 	{
-		printf("Fork incompleto");
+		exit (0);
+		//printf("Fork incompleto");
 	}
-	if (pid == 0)
+	if (pid > 0)
 	{
-		while (1)
-		{
-			TemperaturaMonitor();			
-		}
+		exit(1);
 	}
+	umask(0); //set file mode mask
+	sid = setsid(); //set session id
+	if (sid<0)
+	{
+		exit(0);
+	}
+
+	if ((chdir("/"))<0) //change working directory
+	{
+		exit(0);
+	}
+	//close standards io
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
+
+	
+	while (1)
+	{
+		TemperaturaMonitor();			
+	}
+	
 	return 0;
 }
 
