@@ -21,7 +21,6 @@ int main ()
 	if (pid < 0)
 	{
 		exit (0);
-		//printf("Fork incompleto");
 	}
 	if (pid > 0)
 	{
@@ -84,19 +83,19 @@ void TemperaturaMonitor()
 	int i;
 	for (i=0;i<50;i++)
 	{
-	temperatura = readNumberFile("/sys/class/thermal/thermal_zone0/temp");
-	if (temperatura != -1)
-	{
-		if (temperatura >= MAX_TEMP)
+		temperatura = readNumberFile("/sys/class/thermal/thermal_zone0/temp");
+		if (temperatura != -1)
 		{
-			digitalWrite(PIN_TEMPERATURA, HIGH);
-			delay(50);
+			if (temperatura >= MAX_TEMP)
+			{
+				digitalWrite(PIN_TEMPERATURA, HIGH);
+				delay(50);
+			}
+			else
+			{
+				digitalWrite(PIN_TEMPERATURA, LOW);
+			}
 		}
-		else
-		{
-			digitalWrite(PIN_TEMPERATURA, LOW);
-		}
-	}
 	}
 }
 
