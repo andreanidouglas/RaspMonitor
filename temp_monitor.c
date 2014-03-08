@@ -47,7 +47,7 @@ int main ()
 	while (1)
 	{
 		TemperaturaMonitor();			
-		sleep(30);
+		sleep(10);
 	}
 	
 	return 0;
@@ -81,16 +81,22 @@ void TemperaturaMonitor()
 {
 	pinMode(PIN_TEMPERATURA, OUTPUT); //SETUP PIN
 	long temperatura;
+	int i;
+	for (i=0;i<50;i++)
+	{
 	temperatura = readNumberFile("/sys/class/thermal/thermal_zone0/temp");
-	//printf("Temperatura: %ld", temperatura);
 	if (temperatura != -1)
 	{
 		if (temperatura >= MAX_TEMP)
 		{
 			digitalWrite(PIN_TEMPERATURA, HIGH);
-			delay(300);
+			delay(50);
+		}
+		else
+		{
 			digitalWrite(PIN_TEMPERATURA, LOW);
 		}
+	}
 	}
 }
 
