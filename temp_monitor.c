@@ -47,6 +47,7 @@ int main ()
 	while (1)
 	{
 		TemperaturaMonitor();			
+		sleep(30);
 	}
 	
 	return 0;
